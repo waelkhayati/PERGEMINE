@@ -224,12 +224,12 @@ export default function HSEPage() {
 
       {/* ===== SAFETY GAME TEASER ===== */}
       <section className="relative py-24 text-white overflow-hidden">
-        <div className="absolute inset-0 bg-cover bg-center" />
+        <div className="absolute inset-0 bg-cover bg-center" 
+          style={{ backgroundImage: "url('/quiz.jpg')" }}
+        />
         <div className="absolute inset-0 bg-brand-blue/90" />
         <div className="relative z-10 max-w-3xl mx-auto text-center px-6">
-          <p className="uppercase tracking-[0.25em] text-brand-yellow text-sm font-semibold mb-4">
-            {t("hse.game.pre")}
-          </p>
+
           <h2 className="text-4xl md:text-5xl font-bold leading-tight">
             {t("hse.game.title")}
           </h2>

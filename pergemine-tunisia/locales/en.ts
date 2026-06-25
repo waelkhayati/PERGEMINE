@@ -476,6 +476,27 @@ titles: {
   low: "Needs Training",
 },
 
+
+match: {
+  hint: "Click a sign, then click its matching description.",
+  submit: "Check My Answers",
+  reset: "Reset",
+  resultAll: "✅ Perfect! You matched all signs correctly.",
+  resultPartial: "You matched {correct} out of {total} pairs.",
+  resultFail: "Almost there — review the correct matches below.",
+},
+
+sequence: {
+  hint: "Click the steps in the order they should happen.",
+  submit: "Validate My Sequence",
+  reset: "Reset",
+  step: "Step",
+  resultCorrect: "✅ Perfect sequence! You followed the right emergency protocol.",
+  resultPartial: "Close — {correct} steps in the correct position. Review below.",
+  resultFail: "Wrong order — review the correct protocol below.",
+  correctOrder: "Correct order:",
+},
+
     intro: {
       pre: "HSE Training Game",
       title: "Safety First",
@@ -494,10 +515,12 @@ titles: {
       backToHse: "Back to HSE",
     },
     types: {
-      mcq: "Multiple Choice",
-      scenario: "Scenario — What would you do?",
-      hazard: "Spot the Hazard",
-    },
+  mcq: "Multiple Choice",
+  scenario: "Scenario — What would you do?",
+  hazard: "Spot the Hazard",
+  match: "Match the Sign",
+  sequence: "Sequence the Emergency",
+},
     hazard: {
       found: "Click on every hazard you can find ({found} / {total} found)",
       done: "I'm done — show results",
@@ -512,6 +535,13 @@ titles: {
       percent: "{pct}% correct",
       playAgain: "Play Again",
       backToHse: "Back to HSE",
+      
+titles: {
+    high: "HSE Champion",
+    mid: "Safety Ready",
+    low: "Needs Training",
+  },
+
     },
     questions: [
       {
@@ -601,6 +631,30 @@ titles: {
           { x: 40, y: 89, label: "Oil/chemical spill on the ground", description: "Spills must be reported and contained immediately." },
         ],
       },
+      {
+  type: "match",
+  category: "ppe",
+  question: "Match each safety sign with its correct meaning.",
+  pairs: [
+    { sign: "/safety-game/hard-hat.jpg", description: "Hard hat mandatory" },
+    { sign: "/safety-game/smoking.jpg", description: "No smoking" },
+    { sign: "/safety-game/flammable.png", description: "Flammable materials zone" },
+    { sign: "/safety-game/exit.webp", description: "Emergency exit / Muster point" },
+  ],
+},
+{
+  type: "sequence",
+  category: "emergency",
+  question: "Put the emergency response steps in the correct order.",
+  situation: "A gas leak is detected near the BOP stack.",
+  steps: [
+    "Stop your current task safely",
+    "Warn nearby workers",
+    "Activate the general alarm",
+    "Evacuate to the muster station",
+    "Wait for supervisor confirmation",
+  ],
+},
     ],
   },
 };

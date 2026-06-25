@@ -9,6 +9,8 @@ import ScenarioCard from "@/components/game/ScenarioCard";
 import HazardCard from "@/components/game/HazardCard";
 import FeedbackBanner from "@/components/game/FeedbackBanner";
 import ResultScreen from "@/components/game/ResultScreen";
+import MatchCard from "@/components/game/MatchCard";
+import SequenceCard from "@/components/game/SequenceCard";
 
 type Phase = "intro" | "playing" | "done";
 
@@ -26,7 +28,8 @@ export default function SafetyGamePage() {
     correct: boolean;
     text: string;
   } | null>(null);
-
+const [matchAnswered, setMatchAnswered] = useState(false);
+const [sequenceAnswered, setSequenceAnswered] = useState(false);
   const current = questions[index];
 
   function start() {
@@ -37,18 +40,22 @@ export default function SafetyGamePage() {
   }
 
   function resetAnswerState() {
-    setAnsweredIdx(null);
-    setHazardAnswered(false);
-    setFeedback(null);
-  }
+  setAnsweredIdx(null);
+  setHazardAnswered(false);
+  setMatchAnswered(false);
+  setSequenceAnswered(false);
+  setFeedback(null);
+}
 
   function handleAnswer(correct: boolean, text: string, choiceIdx?: number) {
-    if (correct) setScore((s) => s + 1);
-    setFeedback({ correct, text });
+  if (correct) setScore((s) => s + 1);
+  setFeedback({ correct, text });
 
-    if (current.type === "hazard") setHazardAnswered(true);
-    else if (choiceIdx !== undefined) setAnsweredIdx(choiceIdx);
-  }
+  if (current.type === "hazard") setHazardAnswered(true);
+  else if (current.type === "match") setMatchAnswered(true);
+  else if (current.type === "sequence") setSequenceAnswered(true);
+  else if (choiceIdx !== undefined) setAnsweredIdx(choiceIdx);
+}
 
   function next() {
     if (index + 1 >= questions.length) {
@@ -117,6 +124,22 @@ export default function SafetyGamePage() {
               <HazardCard
                 q={current}
                 answered={hazardAnswered}
+                onAnswer={(correct, fb) => handleAnswer(correct, fb)}
+              />
+            )}
+
+            {current.type === "match" && (
+              <MatchCard
+                q={current}
+                answered={matchAnswered}
+                onAnswer={(correct, fb) => handleAnswer(correct, fb)}
+              />
+            )}
+
+            {current.type === "sequence" && (
+              <SequenceCard
+                q={current}
+                answered={sequenceAnswered}
                 onAnswer={(correct, fb) => handleAnswer(correct, fb)}
               />
             )}

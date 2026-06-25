@@ -34,7 +34,35 @@ export type HazardQuestion = {
   hazards: Hazard[];
 };
 
-export type Question = MCQQuestion | ScenarioQuestion | HazardQuestion;
+/* ===== MATCH SIGN ===== */
+export type MatchPair = {
+  sign: string;       // emoji or image path
+  description: string; // text to match
+};
+
+export type MatchQuestion = {
+  type: "match";
+  category: "ppe" | "emergency" | "hazard" | "environment" | "operations";
+  question: string;
+  pairs: MatchPair[];
+};
+
+/* ===== SEQUENCE EMERGENCY ===== */
+export type SequenceQuestion = {
+  type: "sequence";
+  category: "ppe" | "emergency" | "hazard" | "environment" | "operations";
+  question: string;
+  situation: string;
+  steps: string[]; // in CORRECT order
+};
+
+/* Update the union */
+export type Question =
+  | MCQQuestion
+  | ScenarioQuestion
+  | HazardQuestion
+  | MatchQuestion
+  | SequenceQuestion;
 
 export const questions: Question[] = [
   /* ========== MCQ ========== */
@@ -225,4 +253,6 @@ export const questions: Question[] = [
     },
   ],
 },
+
 ];
+

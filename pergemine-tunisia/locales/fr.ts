@@ -494,10 +494,32 @@ titles: {
       backToHse: "Retour à HSE",
     },
     types: {
-      mcq: "Choix multiple",
-      scenario: "Scénario — Que feriez-vous ?",
-      hazard: "Repérez le danger",
-    },
+  mcq: "Choix multiple",
+  scenario: "Scénario — Que feriez-vous ?",
+  hazard: "Repérez le danger",
+  match: "Associez le panneau",
+  sequence: "Mettez l'urgence en ordre",
+},
+
+match: {
+  hint: "Cliquez sur un panneau, puis sur sa description correspondante.",
+  submit: "Vérifier mes réponses",
+  reset: "Réinitialiser",
+  resultAll: "✅ Parfait ! Vous avez associé tous les panneaux correctement.",
+  resultPartial: "Vous avez associé {correct} sur {total} paires.",
+  resultFail: "Presque — examinez les bonnes associations ci-dessous.",
+},
+
+sequence: {
+  hint: "Cliquez sur les étapes dans l'ordre où elles doivent se produire.",
+  submit: "Valider ma séquence",
+  reset: "Réinitialiser",
+  step: "Étape",
+  resultCorrect: "✅ Séquence parfaite ! Vous avez suivi le bon protocole d'urgence.",
+  resultPartial: "Presque — {correct} étapes à la bonne position. Voir ci-dessous.",
+  resultFail: "Mauvais ordre — examinez le bon protocole ci-dessous.",
+  correctOrder: "Ordre correct :",
+},
     hazard: {
       found: "Cliquez sur tous les dangers que vous pouvez trouver ({found} / {total} trouvés)",
       done: "J'ai terminé — afficher les résultats",
@@ -512,6 +534,13 @@ titles: {
       percent: "{pct}% correct",
       playAgain: "Rejouer",
       backToHse: "Retour à HSE",
+      
+ titles: {
+    high: "Champion HSE",
+    mid: "Prêt pour la sécurité",
+    low: "Besoin de formation",
+  },
+
     },
     questions: [
       {
@@ -600,6 +629,30 @@ titles: {
           { x: 40, y: 89, label: "Fuite d'huile/produit chimique au sol", description: "Les déversements doivent être signalés et contenus immédiatement." },
         ],
       },
+      {
+  type: "match",
+  category: "ppe",
+  question: "Associez chaque panneau de sécurité à sa signification correcte.",
+  pairs: [
+    { sign: "/safety-game/hard-hat.jpg", description: "Casque obligatoire" },
+    { sign: "/safety-game/smoking.jpg", description: "Interdiction de fumer" },
+    { sign: "/safety-game/flammable.png", description: "Zone de matières inflammables" },
+    { sign: "/safety-game/exit.webp", description: "Sortie d'urgence / point de rassemblement" },
+  ],
+},
+{
+  type: "sequence",
+  category: "emergency",
+  question: "Mettez les étapes d'intervention d'urgence dans le bon ordre.",
+  situation: "Une fuite de gaz est détectée près du bloc BOP.",
+  steps: [
+    "Arrêtez votre tâche en toute sécurité",
+    "Alertez les travailleurs à proximité",
+    "Activez l'alarme générale",
+    "Évacuez vers le point de rassemblement",
+    "Attendez la confirmation du superviseur",
+  ],
+},
     ],
   },
 };
