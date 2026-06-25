@@ -51,11 +51,15 @@ export default function HazardCard({ q, onAnswer, answered }: Props) {
         {q.question}
       </h2>
       <p className="mt-2 text-gray-600 text-sm">
-        {t("game.hazard.found", { found: found.length, total: q.hazards.length })}
+        {t("game.hazard.found", {
+          found: found.length,
+          total: q.hazards.length,
+        })}
       </p>
 
       <div className="relative mt-6 rounded-md overflow-hidden border border-gray-200">
-        {q.image}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={q.image} alt="Rig scene" className="w-full block" />
         {q.hazards.map((h, i) => {
           const isFound = found.includes(i);
           return (

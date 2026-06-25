@@ -469,6 +469,13 @@ export const en = {
   },
 
   game: {
+    
+titles: {
+  high: "HSE Champion",
+  mid: "Safety Ready",
+  low: "Needs Training",
+},
+
     intro: {
       pre: "HSE Training Game",
       title: "Safety First",
@@ -548,6 +555,7 @@ export const en = {
           { text: "Ignore it — it's too small to matter", correct: false, feedback: "❌ No spill is too small. All spills must be reported per Pergemine HSE policy." },
         ],
       },
+      
       {
         type: "scenario",
         category: "hazard",

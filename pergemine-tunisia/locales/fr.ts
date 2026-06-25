@@ -476,6 +476,13 @@ export const fr = {
       start: "Commencer le jeu",
       tags: ["🦺 EPI", "🚨 Urgence", "⚠️ Dangers", "🌿 Environnement"],
     },
+    
+titles: {
+  high: "Champion HSE",
+  mid: "Prêt pour la sécurité",
+  low: "Besoin de formation",
+},
+
     progress: {
       question: "Question {current} / {total}",
       score: "Score : {score}",

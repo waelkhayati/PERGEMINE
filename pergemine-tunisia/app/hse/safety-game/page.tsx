@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "@/lib/useTranslations";
-import { questions } from "@/data/safety-questions";
+import type { Question } from "@/data/safety-questions";
 import IntroScreen from "@/components/game/IntroScreen";
 import MCQCard from "@/components/game/MCQCard";
 import ScenarioCard from "@/components/game/ScenarioCard";
@@ -13,6 +13,9 @@ import ResultScreen from "@/components/game/ResultScreen";
 type Phase = "intro" | "playing" | "done";
 
 export default function SafetyGamePage() {
+  const { t, messages } = useTranslations();
+  const questions = messages.game.questions as Question[];
+
   const [phase, setPhase] = useState<Phase>("intro");
   const [index, setIndex] = useState(0);
   const [score, setScore] = useState(0);
@@ -56,8 +59,6 @@ export default function SafetyGamePage() {
     }
   }
 
-  const { t } = useTranslations();
-
   return (
     <section className="min-h-screen bg-brand-light pt-32 pb-20">
       <div className="max-w-3xl mx-auto px-6">
@@ -74,9 +75,7 @@ export default function SafetyGamePage() {
                     total: questions.length,
                   })}
                 </span>
-                <span>
-                  {t("game.progress.score", { score })}
-                </span>
+                <span>{t("game.progress.score", { score })}</span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-2">
                 <div
@@ -93,7 +92,9 @@ export default function SafetyGamePage() {
                 q={current}
                 answered={answeredIdx}
                 onAnswer={(correct, fb) => {
-                  const idx = current.choices.findIndex((c) => c.feedback === fb);
+                  const idx = current.choices.findIndex(
+                    (c) => c.feedback === fb
+                  );
                   handleAnswer(correct, fb, idx);
                 }}
               />
@@ -104,7 +105,9 @@ export default function SafetyGamePage() {
                 q={current}
                 answered={answeredIdx}
                 onAnswer={(correct, fb) => {
-                  const idx = current.choices.findIndex((c) => c.feedback === fb);
+                  const idx = current.choices.findIndex(
+                    (c) => c.feedback === fb
+                  );
                   handleAnswer(correct, fb, idx);
                 }}
               />
