@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { HazardQuestion } from "@/data/safety-questions";
+import { useTranslations } from "@/lib/useTranslations";
 
 type Props = {
   q: HazardQuestion;
@@ -10,6 +11,7 @@ type Props = {
 };
 
 export default function HazardCard({ q, onAnswer, answered }: Props) {
+  const { t } = useTranslations();
   const [found, setFound] = useState<number[]>([]);
 
   function handleClick(idx: number) {
@@ -20,17 +22,23 @@ export default function HazardCard({ q, onAnswer, answered }: Props) {
     setFound(next);
 
     if (next.length === q.hazards.length) {
-      const correct = true;
-      const feedback = `✅ You found all ${q.hazards.length} hazards! Excellent eye for safety.`;
-      onAnswer(correct, feedback);
+      const feedback = t("game.hazard.result", {
+        found: next.length,
+        total: q.hazards.length,
+        outcome: t("game.hazard.good"),
+      });
+      onAnswer(true, feedback);
     }
   }
 
   function handleSubmit() {
     const correct = found.length >= Math.ceil(q.hazards.length / 2);
-    const feedback = `You found ${found.length} out of ${q.hazards.length} hazards. ${
-      correct ? "Good job ✅" : "Keep practicing — review all hazards below."
-    }`;
+    const outcome = correct ? t("game.hazard.good") : t("game.hazard.practice");
+    const feedback = t("game.hazard.result", {
+      found: found.length,
+      total: q.hazards.length,
+      outcome,
+    });
     onAnswer(correct, feedback);
   }
 
@@ -47,7 +55,7 @@ export default function HazardCard({ q, onAnswer, answered }: Props) {
       </p>
 
       <div className="relative mt-6 rounded-md overflow-hidden border border-gray-200">
-        <img src={q.image} alt="Rig scene" className="w-full block" />
+        {q.image}
         {q.hazards.map((h, i) => {
           const isFound = found.includes(i);
           return (
@@ -86,7 +94,9 @@ export default function HazardCard({ q, onAnswer, answered }: Props) {
 
       {answered && (
         <div className="mt-6 space-y-2 text-sm">
-          <p className="font-semibold text-brand-blue">Hazards explained:</p>
+          <p className="font-semibold text-brand-blue">
+            {t("game.hazard.explained")}
+          </p>
           {q.hazards.map((h, i) => (
             <div
               key={i}
