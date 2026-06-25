@@ -3,30 +3,22 @@
 import { useState } from "react";
 import Link from "next/link";
 import CertificateLightbox from "@/components/CertificateLightbox";
-
-const facilities = [
-  { icon: "🏠", title: "Housing", desc: "~100 beds in huts of 2, 4, and 8 — across 24 barracks." },
-  { icon: "🍽️", title: "Kitchen & Restaurant", desc: "Full catering services managed by Petroconfort." },
-  { icon: "💧", title: "Water Storage", desc: "100 m³ drinking water + 25 m³ industrial water." },
-  { icon: "⛽", title: "Fuel Tanks", desc: "2 fuel tanks of 17 m³ each." },
-  { icon: "🥖", title: "Bakery & Patisserie", desc: "On-site bakery for daily fresh production." },
-  { icon: "🏥", title: "Medical Clinic", desc: "Infirmary with site doctor (Help Group)." },
-  { icon: "🧺", title: "Laundry", desc: "Dedicated laundry facility for all residents." },
-  { icon: "❄️", title: "Cold Storage", desc: "Refrigerated shed + 2 food storage units." },
-];
-
-const layout = {
-  img: "/camp/camp-layout.png",
-  title: "Camp Layout",
-  subtitle: "10,000 m² residential camp (100 × 100 m)",
-};
+import { useTranslations } from "@/lib/useTranslations";
 
 export default function CampPage() {
+  const { t, messages, createLocalizedHref } = useTranslations();
+
   const [active, setActive] = useState<null | {
     img: string;
     title: string;
     subtitle: string;
   }>(null);
+
+  const layout = {
+    img: "/camp/camp-layout.png",
+    title: t("camp.layout.imageTitle"),
+    subtitle: t("camp.layout.imageSubtitle"),
+  };
 
   return (
     <>
@@ -34,17 +26,17 @@ export default function CampPage() {
       <section className="relative h-[60vh] flex items-center justify-center text-white overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: "url('/camp/camp-hero.jpg')",
-          }}
+          style={{ backgroundImage: "url('/camp/camp-hero.jpg')" }}
         />
         <div className="absolute inset-0 bg-gradient-to-br from-brand-dark/90 to-brand-blue/70" />
         <div className="relative z-10 text-center max-w-3xl px-6">
           <p className="uppercase tracking-[0.3em] text-brand-yellow text-sm mb-4">
-            Camp & Infrastructure
+            {t("camp.hero.pre")}
           </p>
           <h1 className="text-5xl md:text-6xl font-bold leading-tight">
-            A safe <span className="text-brand-yellow">home</span> on every site
+            {t("camp.hero.titleStart")}{" "}
+            <span className="text-brand-yellow">{t("camp.hero.titleHighlight")}</span>{" "}
+            {t("camp.hero.titleEnd")}
           </h1>
         </div>
       </section>
@@ -52,12 +44,7 @@ export default function CampPage() {
       {/* ===== STATS ===== */}
       <section className="bg-brand-yellow text-brand-blue py-12">
         <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 px-6 text-center">
-          {[
-            { num: "10,000 m²", label: "Total area" },
-            { num: "100", label: "Beds" },
-            { num: "24", label: "Barracks" },
-            { num: "100 m³", label: "Drinking water" },
-          ].map((s) => (
+          {messages.camp.stats.map((s) => (
             <div key={s.label}>
               <p className="text-3xl md:text-4xl font-bold">{s.num}</p>
               <p className="mt-2 text-sm uppercase tracking-wider font-semibold">
@@ -73,16 +60,13 @@ export default function CampPage() {
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
           <div>
             <p className="uppercase tracking-[0.25em] text-brand-yellow text-sm font-semibold mb-4">
-              Residential Camp
+              {t("camp.intro.pre")}
             </p>
             <h2 className="text-4xl md:text-5xl font-bold text-brand-blue leading-tight">
-              Built for safety, comfort, and operational efficiency
+              {t("camp.intro.title")}
             </h2>
             <p className="mt-8 text-gray-600 text-lg leading-relaxed">
-              Our residential camp spans 10,000 m² (100 × 100 m), with guarded
-              gate access, dedicated parking, emergency exits, and full
-              facilities for crews — supporting up to 100 residents in safe,
-              comfortable conditions.
+              {t("camp.intro.desc")}
             </p>
           </div>
 
@@ -100,14 +84,13 @@ export default function CampPage() {
         <div className="max-w-5xl mx-auto px-6">
           <div className="text-center max-w-2xl mx-auto mb-14">
             <p className="uppercase tracking-[0.25em] text-brand-yellow text-sm font-semibold mb-4">
-              Camp Layout
+              {t("camp.layout.pre")}
             </p>
             <h2 className="text-4xl md:text-5xl font-bold text-brand-blue leading-tight">
-              How the camp is organized
+              {t("camp.layout.title")}
             </h2>
             <p className="mt-6 text-gray-600 text-lg leading-relaxed">
-              A clear, structured plan designed for safety, accessibility, and
-              comfort.
+              {t("camp.layout.desc")}
             </p>
           </div>
 
@@ -122,7 +105,7 @@ export default function CampPage() {
               />
               <div className="absolute inset-0 bg-brand-blue/0 group-hover:bg-brand-blue/20 transition flex items-center justify-center">
                 <span className="opacity-0 group-hover:opacity-100 bg-brand-yellow text-brand-blue font-semibold px-4 py-2 rounded-md transition">
-                  🔍 View
+                  🔍 {t("camp.layout.view")}
                 </span>
               </div>
             </div>
@@ -133,7 +116,7 @@ export default function CampPage() {
           </button>
 
           <p className="text-center text-gray-500 text-sm mt-6 italic">
-            Click the layout to view it full-size.
+            {t("camp.layout.hint")}
           </p>
         </div>
       </section>
@@ -143,15 +126,15 @@ export default function CampPage() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-12">
             <p className="uppercase tracking-[0.25em] text-brand-yellow text-sm font-semibold mb-4">
-              Facilities
+              {t("camp.facilities.pre")}
             </p>
             <h2 className="text-4xl font-bold text-brand-blue">
-              What&apos;s on site
+              {t("camp.facilities.title")}
             </h2>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {facilities.map((f) => (
+            {messages.camp.facilities.items.map((f) => (
               <div
                 key={f.title}
                 className="bg-brand-light p-6 rounded-lg shadow-md hover:shadow-xl transition border-l-4 border-brand-yellow"
@@ -174,55 +157,40 @@ export default function CampPage() {
         <div className="max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
           <div>
             <p className="uppercase tracking-[0.25em] text-brand-yellow text-sm font-semibold mb-4">
-              Security & access
+              {t("camp.security.pre")}
             </p>
             <h2 className="text-4xl font-bold leading-tight">
-              A controlled, secure environment
+              {t("camp.security.title")}
             </h2>
             <p className="mt-6 text-gray-200 text-lg leading-relaxed">
-              Every Pergemine camp is designed with safety at its core — with
-              strict access control, emergency procedures, and continuous
-              on-site monitoring.
+              {t("camp.security.desc")}
             </p>
           </div>
 
           <ul className="space-y-3 text-gray-100">
-            <li className="flex items-start gap-3">
-              <span className="text-brand-yellow">✓</span> Guarded gate access
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="text-brand-yellow">✓</span> Dedicated car parking area
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="text-brand-yellow">✓</span> Marked emergency exits
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="text-brand-yellow">✓</span> On-site medical clinic
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="text-brand-yellow">✓</span> 24/7 power supply
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="text-brand-yellow">✓</span> Continuous water supply
-            </li>
+            {messages.camp.security.list.map((item) => (
+              <li key={item} className="flex items-start gap-3">
+                <span className="text-brand-yellow">✓</span> {item}
+              </li>
+            ))}
           </ul>
         </div>
       </section>
 
-      {/* ===== CTA ===== */}
+{/* ===== CTA ===== */}
       <section className="py-20 bg-white text-center">
         <div className="max-w-3xl mx-auto px-6">
           <h2 className="text-3xl md:text-4xl font-bold text-brand-blue">
-            Want to know more about our infrastructure?
+            {t("camp.cta.title")}
           </h2>
           <p className="mt-4 mb-8 text-gray-600 text-lg">
-            Reach out to our team for a complete site overview.
+            {t("camp.cta.desc")}
           </p>
           <Link
-            href="/contact"
+            href={createLocalizedHref("/contact")}
             className="bg-brand-blue text-white font-semibold px-8 py-4 rounded-md hover:bg-brand-dark transition shadow-lg"
           >
-            Contact Us
+            {t("camp.cta.contact")}
           </Link>
         </div>
       </section>

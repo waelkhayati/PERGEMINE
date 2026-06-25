@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "@/lib/useTranslations";
 
 export default function ContactPage() {
+  const { t, messages } = useTranslations();
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -36,21 +38,19 @@ export default function ContactPage() {
       <section className="relative h-[55vh] flex items-center justify-center text-white overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage:
-              "url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=2000&q=80')",
-          }}
+          style={{ backgroundImage: "url('/contact.webp')" }}
         />
         <div className="absolute inset-0 bg-gradient-to-br from-brand-dark/90 to-brand-blue/70" />
         <div className="relative z-10 text-center max-w-3xl px-6">
           <p className="uppercase tracking-[0.3em] text-brand-yellow text-sm mb-4">
-            Get in touch
+            {t("contact.hero.pre")}
           </p>
           <h1 className="text-5xl md:text-6xl font-bold leading-tight">
-            Let&apos;s <span className="text-brand-yellow">talk</span>
+            {t("contact.hero.titleStart")}{" "}
+            <span className="text-brand-yellow">{t("contact.hero.titleHighlight")}</span>
           </h1>
           <p className="mt-4 text-gray-200 text-lg">
-            We&apos;d love to hear about your next project.
+            {t("contact.hero.subtitle")}
           </p>
         </div>
       </section>
@@ -61,37 +61,34 @@ export default function ContactPage() {
           {/* ===== INFO ===== */}
           <div>
             <p className="uppercase tracking-[0.25em] text-brand-yellow text-sm font-semibold mb-4">
-              Our office
+              {t("contact.info.pre")}
             </p>
             <h2 className="text-4xl font-bold text-brand-blue leading-tight">
-              Pergemine Tunisia SARL
+              {t("contact.info.title")}
             </h2>
             <p className="mt-6 text-gray-600 leading-relaxed">
-              Headquartered in Tunis with an operational base in Gabès, our team
-              is ready to discuss your drilling needs.
+              {t("contact.info.desc")}
             </p>
 
             <div className="mt-10 space-y-6">
               <InfoBlock
                 icon="📍"
-                title="Headquarters"
-                lines={[
-                  "Rue du Lac Houran",
-                  "Rahma Building, Apt A5",
-                  "1053 Les Berges du Lac 1",
-                  "Tunis, Tunisia",
-                ]}
+                title={t("contact.info.hq.title")}
+                lines={messages.contact.info.hq.lines}
               />
               <InfoBlock
                 icon="🏭"
-                title="Operational Base"
-                lines={["Gabès, Tunisia", "Storage & maintenance"]}
+                title={t("contact.info.base.title")}
+                lines={messages.contact.info.base.lines}
               />
               <InfoBlock
                 icon="🌍"
-                title="Parent Company"
-                lines={["Pergemine S.P.A — Italy"]}
-                link={{ href: "https://www.pergemine.it/", label: "pergemine.it →" }}
+                title={t("contact.info.parent.title")}
+                lines={messages.contact.info.parent.lines}
+                link={{
+                  href: "https://www.pergemine.it/",
+                  label: t("contact.info.parent.linkLabel"),
+                }}
               />
             </div>
           </div>
@@ -99,45 +96,45 @@ export default function ContactPage() {
           {/* ===== FORM ===== */}
           <div className="bg-brand-light p-8 md:p-10 rounded-lg shadow-md border-t-4 border-brand-yellow">
             <h3 className="text-2xl font-bold text-brand-blue mb-2">
-              Send us a message
+              {t("contact.form.title")}
             </h3>
             <p className="text-gray-600 text-sm mb-6">
-              Fill out the form and we&apos;ll get back to you shortly.
+              {t("contact.form.desc")}
             </p>
 
             {status === "sent" ? (
               <div className="bg-white border border-brand-yellow rounded-md p-6 text-center">
                 <p className="text-2xl mb-2">✅</p>
                 <p className="text-brand-blue font-semibold">
-                  Thank you! Your message has been sent.
+                  {t("contact.form.successTitle")}
                 </p>
                 <p className="text-gray-600 text-sm mt-2">
-                  Our team will reach out shortly.
+                  {t("contact.form.successDesc")}
                 </p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
-                <Field label="Full Name" name="name" type="text" required />
-                <Field label="Email" name="email" type="email" required />
-                <Field label="Company" name="company" type="text" />
-                <Field label="Phone" name="phone" type="tel" />
+                <Field label={t("contact.form.fields.name")} name="name" type="text" required />
+                <Field label={t("contact.form.fields.email")} name="email" type="email" required />
+                <Field label={t("contact.form.fields.company")} name="company" type="text" />
+                <Field label={t("contact.form.fields.phone")} name="phone" type="tel" />
 
                 <div>
                   <label className="block text-sm font-semibold text-brand-blue mb-2">
-                    Message *
+                    {t("contact.form.fields.message")} *
                   </label>
                   <textarea
                     required
                     name="message"
                     rows={5}
                     className="w-full rounded-md border border-gray-300 px-4 py-3 focus:outline-none focus:border-brand-blue bg-white"
-                    placeholder="Tell us about your project..."
+                    placeholder={t("contact.form.fields.messagePlaceholder")}
                   />
                 </div>
 
                 {status === "error" && (
                   <p className="text-red-600 text-sm">
-                    ❌ Something went wrong. Please try again.
+                    ❌ {t("contact.form.errorText")}
                   </p>
                 )}
 
@@ -146,7 +143,9 @@ export default function ContactPage() {
                   disabled={status === "sending"}
                   className="w-full bg-brand-blue text-white font-semibold py-3 rounded-md hover:bg-brand-dark transition shadow-md disabled:opacity-60"
                 >
-                  {status === "sending" ? "Sending..." : "Send Message"}
+                  {status === "sending"
+                    ? t("contact.form.sending")
+                    : t("contact.form.send")}
                 </button>
               </form>
             )}
@@ -159,7 +158,7 @@ export default function ContactPage() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="rounded-lg overflow-hidden shadow-lg border border-gray-200">
             <iframe
-              title="Pergemine Tunisia Office"
+              title={t("contact.map.title")}
               src="https://www.google.com/maps?q=Les+Berges+du+Lac+1,+Tunis&output=embed"
               width="100%"
               height="450"

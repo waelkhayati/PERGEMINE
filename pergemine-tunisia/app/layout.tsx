@@ -7,9 +7,9 @@ import Footer from "@/components/Footer";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
-  title: "Pergemine Tunisia | Drilling Contractor",
+  title: "Pergemine Tunisia | Entrepreneur de forage",
   description:
-    "Pergemine Tunisia – Onshore drilling contractor since 2005, subsidiary of Pergemine S.P.A (Italy).",
+    "Pergemine Tunisia – Entrepreneur de forage terrestre depuis 2005, filiale de Pergemine S.P.A (Italie).",
 };
 
 export default function RootLayout({

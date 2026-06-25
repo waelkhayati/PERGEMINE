@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useTranslations } from "@/lib/useTranslations";
 
 type Props = {
   score: number;
@@ -9,19 +10,20 @@ type Props = {
 };
 
 export default function ResultScreen({ score, total, onRetry }: Props) {
+  const { t, createLocalizedHref } = useTranslations();
   const pct = (score / total) * 100;
 
   let badge = "🥉";
-  let title = "Needs Training";
+  let title = t("game.result.titles.low");
   let color = "text-orange-600";
 
   if (pct >= 80) {
     badge = "🥇";
-    title = "HSE Champion";
+    title = t("game.result.titles.high");
     color = "text-brand-yellow";
   } else if (pct >= 50) {
     badge = "🥈";
-    title = "Safety Ready";
+    title = t("game.result.titles.mid");
     color = "text-gray-500";
   }
 
@@ -32,12 +34,14 @@ export default function ResultScreen({ score, total, onRetry }: Props) {
 
       <div className="mt-8 bg-white rounded-lg shadow-lg p-8 border-t-4 border-brand-yellow">
         <p className="text-gray-600 uppercase tracking-widest text-xs font-semibold">
-          Your Score
+          {t("game.result.yourScore")}
         </p>
         <p className="text-6xl font-bold text-brand-blue mt-2">
           {score} / {total}
         </p>
-        <p className="text-gray-600 mt-2">{Math.round(pct)}% correct</p>
+        <p className="text-gray-600 mt-2">
+          {t("game.result.percent", { pct: Math.round(pct) })}
+        </p>
 
         <div className="mt-6 w-full bg-gray-200 rounded-full h-3">
           <div
@@ -52,13 +56,13 @@ export default function ResultScreen({ score, total, onRetry }: Props) {
           onClick={onRetry}
           className="bg-brand-yellow text-brand-blue font-semibold px-8 py-3 rounded-md hover:bg-yellow-400 transition shadow-lg"
         >
-          Play Again
+          {t("game.result.playAgain")}
         </button>
         <Link
-          href="/hse"
+          href={createLocalizedHref("/hse")}
           className="border-2 border-brand-blue text-brand-blue font-semibold px-8 py-3 rounded-md hover:bg-brand-blue hover:text-white transition"
         >
-          Back to HSE
+          {t("game.result.backToHse")}
         </Link>
       </div>
     </div>

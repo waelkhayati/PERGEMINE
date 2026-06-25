@@ -2,18 +2,20 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useTranslations } from "@/lib/useTranslations";
 
 const navLinks = [
-  { name: "Home", href: "/" },
-  { name: "About", href: "/about" },
-  { name: "Services", href: "/services" },
-  { name: "Rig #11", href: "/rig" },
-  { name: "HSE", href: "/hse" },
-  { name: "Camp", href: "/camp" },
-  { name: "Contact", href: "/contact" },
+  { key: "navbar.home", href: "/" },
+  { key: "navbar.about", href: "/about" },
+  { key: "navbar.services", href: "/services" },
+  { key: "navbar.rig", href: "/rig" },
+  { key: "navbar.hse", href: "/hse" },
+  { key: "navbar.camp", href: "/camp" },
+  { key: "navbar.contact", href: "/contact" },
 ];
 
 export default function Navbar() {
+  const { t, locale, switchLocale, createLocalizedHref } = useTranslations();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -32,12 +34,11 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6">
-        <Link href="/" className="flex items-center gap-3">
+        <Link href={createLocalizedHref("/")} className="flex items-center gap-3">
           <img
             src="/pergemine_tunisie_logo.png"
             alt="Pergemine Tunisia logo"
             className="h-14 object-contain"
-            
           />
         </Link>
 
@@ -45,21 +46,31 @@ export default function Navbar() {
           {navLinks.map((link) => (
             <Link
               key={link.href}
-              href={link.href}
+              href={createLocalizedHref(link.href)}
               className="relative hover:text-brand-yellow after:absolute after:bottom-[-6px] after:left-0 after:w-0 after:h-[2px] after:bg-brand-yellow after:transition-all after:duration-300 hover:after:w-full"
             >
-              {link.name}
+              {t(link.key)}
             </Link>
           ))}
         </nav>
 
-        <button
-          className="md:hidden text-white text-2xl"
-          onClick={() => setOpen(!open)}
-          aria-label="Toggle menu"
-        >
-          ☰
-        </button>
+        <div className="flex items-center gap-4">
+          <button
+            type="button"
+            onClick={() => switchLocale(locale === "fr" ? "en" : "fr")}
+            className="rounded-full border border-white px-4 py-2 text-sm font-semibold text-white hover:bg-white/10 transition"
+          >
+            {locale === "fr" ? "EN" : "FR"}
+          </button>
+
+          <button
+            className="md:hidden text-white text-2xl"
+            onClick={() => setOpen(!open)}
+            aria-label="Toggle menu"
+          >
+            ☰
+          </button>
+        </div>
       </div>
 
       {open && (
@@ -67,11 +78,11 @@ export default function Navbar() {
           {navLinks.map((link) => (
             <Link
               key={link.href}
-              href={link.href}
+              href={createLocalizedHref(link.href)}
               className="hover:text-brand-yellow"
               onClick={() => setOpen(false)}
             >
-              {link.name}
+              {t(link.key)}
             </Link>
           ))}
         </nav>

@@ -1,6 +1,7 @@
 "use client";
 
 import { ScenarioQuestion } from "@/data/safety-questions";
+import { useTranslations } from "@/lib/useTranslations";
 
 type Props = {
   q: ScenarioQuestion;
@@ -9,10 +10,12 @@ type Props = {
 };
 
 export default function ScenarioCard({ q, onAnswer, answered }: Props) {
+  const { t } = useTranslations();
+
   return (
     <div className="bg-white p-8 rounded-lg shadow-lg border-t-4 border-brand-yellow">
       <p className="uppercase text-xs tracking-widest text-brand-yellow font-semibold mb-2">
-        Scenario — What would you do?
+        {t("game.types.scenario")}
       </p>
 
       <div className="bg-brand-light border-l-4 border-brand-blue p-5 rounded my-4">

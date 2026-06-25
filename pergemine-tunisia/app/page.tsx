@@ -1,6 +1,12 @@
+"use client";
+
 import Link from "next/link";
+import { useTranslations } from "@/lib/useTranslations";
 
 export default function Home() {
+  const { t, messages, createLocalizedHref } = useTranslations();
+  const services = messages.home.services.items;
+
   return (
     <>
       {/* ===== HERO ===== */}
@@ -9,36 +15,33 @@ export default function Home() {
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage:
-              "url('https://images.unsplash.com/photo-1582486225644-088c0f7e6f7d?auto=format&fit=crop&w=2000&q=80')",
+            backgroundImage: "url('/hero.jpg')",
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-br from-brand-dark/90 via-brand-blue/80 to-brand-blue/60" />
 
         <div className="relative z-10 text-center max-w-4xl px-6 fade-in">
           <p className="uppercase tracking-[0.3em] text-brand-yellow text-sm mb-4">
-            Drilling Contractor • Since 2005
+            {t("home.hero.pre")}
           </p>
           <h1 className="text-5xl md:text-7xl font-bold leading-tight">
-            Powering Tunisia's <br />
-            <span className="text-brand-yellow">Energy Future</span>
+            {t("home.hero.title")}
           </h1>
           <p className="mt-8 text-lg md:text-xl text-gray-200 max-w-2xl mx-auto leading-relaxed">
-            Onshore drilling excellence in Tunisia and North Africa.
-            Subsidiary of Pergemine S.P.A (Italy).
+            {t("home.hero.subtitle")}
           </p>
           <div className="mt-10 flex justify-center gap-4 flex-wrap">
             <Link
-              href="/services"
+              href={createLocalizedHref("/services")}
               className="bg-brand-yellow text-brand-blue font-semibold px-8 py-4 rounded-md hover:bg-yellow-400 transition shadow-lg"
             >
-              Our Services
+              {t("home.hero.services")}
             </Link>
             <Link
-              href="/contact"
+              href={createLocalizedHref("/contact")}
               className="border-2 border-white text-white font-semibold px-8 py-4 rounded-md hover:bg-white hover:text-brand-blue transition"
             >
-              Get in Touch
+              {t("home.hero.contact")}
             </Link>
           </div>
         </div>
@@ -53,10 +56,10 @@ export default function Home() {
       <section className="bg-brand-yellow text-brand-blue py-12">
         <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 px-6 text-center">
           {[
-            { num: "35+", label: "Wells Drilled" },
-            { num: "2005", label: "Founded" },
-            { num: "6000m", label: "Drilling Capacity" },
-            { num: "100%", label: "HSE Commitment" },
+            { num: "35+", label: t("home.stats.wells") },
+            { num: "2005", label: t("home.stats.founded") },
+            { num: "6000m", label: t("home.stats.capacity") },
+            { num: "100%", label: t("home.stats.hse") },
           ].map((s) => (
             <div key={s.label}>
               <p className="text-4xl md:text-5xl font-bold">{s.num}</p>
@@ -73,22 +76,19 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
           <div>
             <p className="uppercase tracking-[0.25em] text-brand-yellow text-sm font-semibold mb-4">
-              Who we are
+              {t("home.aboutTeaser.pre")}
             </p>
             <h2 className="text-4xl md:text-5xl font-bold text-brand-blue leading-tight">
-              Two decades of drilling expertise in North Africa
+              {t("home.aboutTeaser.title")}
             </h2>
             <p className="mt-6 text-gray-600 text-lg leading-relaxed">
-              Founded in 2005 and headquartered in Tunis, Pergemine Tunisia is
-              a trusted onshore drilling contractor. As a subsidiary of
-              Pergemine S.P.A, we bring decades of Italian engineering heritage
-              to Tunisian soil — from El Borma to Kebili.
+              {t("home.aboutTeaser.desc")}
             </p>
             <Link
-              href="/about"
+              href={createLocalizedHref("/about")}
               className="inline-block mt-8 text-brand-blue font-semibold border-b-2 border-brand-yellow pb-1 hover:text-brand-yellow transition"
             >
-              Learn more about us →
+              {t("home.aboutTeaser.learnMore")}
             </Link>
           </div>
           <div className="relative h-96 rounded-lg overflow-hidden shadow-2xl">
@@ -96,7 +96,7 @@ export default function Home() {
               className="absolute inset-0 bg-cover bg-center"
               style={{
                 backgroundImage:
-                  "url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80')",
+                  "url('/rig/rig-hero.jpg')",
               }}
             />
           </div>
@@ -108,28 +108,15 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <p className="uppercase tracking-[0.25em] text-brand-yellow text-sm font-semibold mb-4">
-              What we do
+              {t("home.services.pre")}
             </p>
             <h2 className="text-4xl md:text-5xl font-bold text-brand-blue">
-              Comprehensive drilling services
+              {t("home.services.title")}
             </h2>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                title: "Onshore Drilling",
-                desc: "Full-scale onshore drilling operations across Tunisia and North Africa.",
-              },
-              {
-                title: "Rig Operations",
-                desc: "State-of-the-art IDECO E2100 rig with 6000m drilling capacity.",
-              },
-              {
-                title: "HSE & Logistics",
-                desc: "Certified HSE policies, residential camps, and full logistical support.",
-              },
-            ].map((s) => (
+            {services.map((s) => (
               <div
                 key={s.title}
                 className="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition border-t-4 border-brand-yellow"
@@ -150,27 +137,25 @@ export default function Home() {
           className="absolute inset-0 bg-cover bg-center"
           style={{
             backgroundImage:
-              "url('https://images.unsplash.com/photo-1581094271901-8022df4466f9?auto=format&fit=crop&w=2000&q=80')",
+              "url('/safety.jpg')",
           }}
         />
         <div className="absolute inset-0 bg-brand-blue/85" />
         <div className="relative z-10 max-w-4xl mx-auto text-center px-6">
           <p className="uppercase tracking-[0.25em] text-brand-yellow text-sm font-semibold mb-4">
-            Health • Safety • Environment
+            {t("home.hse.pre")}
           </p>
           <h2 className="text-4xl md:text-5xl font-bold leading-tight">
-            Safety is our foundation
+            {t("home.hse.title")}
           </h2>
           <p className="mt-6 text-lg text-gray-200 leading-relaxed">
-            Recognized by ENI HSE Trophy (2011) and HSE Satisfaction
-            Certificate (2015). Our HSE policy protects our people, the
-            environment, and the communities we operate in.
+            {t("home.hse.desc")}
           </p>
           <Link
-            href="/hse"
+            href={createLocalizedHref("/hse")}
             className="inline-block mt-8 bg-brand-yellow text-brand-blue font-semibold px-8 py-4 rounded-md hover:bg-yellow-400 transition"
           >
-            Our HSE Policy
+            {t("home.hse.policy")}
           </Link>
         </div>
       </section>

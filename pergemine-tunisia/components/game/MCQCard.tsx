@@ -1,6 +1,7 @@
 "use client";
 
 import { MCQQuestion } from "@/data/safety-questions";
+import { useTranslations } from "@/lib/useTranslations";
 
 type Props = {
   q: MCQQuestion;
@@ -9,10 +10,12 @@ type Props = {
 };
 
 export default function MCQCard({ q, onAnswer, answered }: Props) {
+  const { t } = useTranslations();
+
   return (
     <div className="bg-white p-8 rounded-lg shadow-lg border-t-4 border-brand-yellow">
       <p className="uppercase text-xs tracking-widest text-brand-yellow font-semibold mb-2">
-        Multiple Choice
+        {t("game.types.mcq")}
       </p>
       <h2 className="text-2xl md:text-3xl font-bold text-brand-blue leading-snug">
         {q.question}

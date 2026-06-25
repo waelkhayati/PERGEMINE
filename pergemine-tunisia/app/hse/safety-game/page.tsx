@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "@/lib/useTranslations";
 import { questions } from "@/data/safety-questions";
 import IntroScreen from "@/components/game/IntroScreen";
 import MCQCard from "@/components/game/MCQCard";
@@ -55,6 +56,8 @@ export default function SafetyGamePage() {
     }
   }
 
+  const { t } = useTranslations();
+
   return (
     <section className="min-h-screen bg-brand-light pt-32 pb-20">
       <div className="max-w-3xl mx-auto px-6">
@@ -66,9 +69,14 @@ export default function SafetyGamePage() {
             <div className="mb-6">
               <div className="flex justify-between text-xs uppercase tracking-widest text-brand-blue font-semibold mb-2">
                 <span>
-                  Question {index + 1} / {questions.length}
+                  {t("game.progress.question", {
+                    current: index + 1,
+                    total: questions.length,
+                  })}
                 </span>
-                <span>Score: {score}</span>
+                <span>
+                  {t("game.progress.score", { score })}
+                </span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-2">
                 <div

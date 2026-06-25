@@ -37,14 +37,13 @@ export default function HazardCard({ q, onAnswer, answered }: Props) {
   return (
     <div className="bg-white p-8 rounded-lg shadow-lg border-t-4 border-brand-yellow">
       <p className="uppercase text-xs tracking-widest text-brand-yellow font-semibold mb-2">
-        Spot the Hazard
+        {t("game.types.hazard")}
       </p>
       <h2 className="text-2xl md:text-3xl font-bold text-brand-blue leading-snug">
         {q.question}
       </h2>
       <p className="mt-2 text-gray-600 text-sm">
-        Click on every hazard you can find ({found.length} / {q.hazards.length}{" "}
-        found)
+        {t("game.hazard.found", { found: found.length, total: q.hazards.length })}
       </p>
 
       <div className="relative mt-6 rounded-md overflow-hidden border border-gray-200">
@@ -81,7 +80,7 @@ export default function HazardCard({ q, onAnswer, answered }: Props) {
           onClick={handleSubmit}
           className="mt-6 bg-brand-blue text-white font-semibold px-6 py-3 rounded-md hover:bg-brand-dark transition"
         >
-          I&apos;m done — show results
+          {t("game.hazard.done")}
         </button>
       )}
 

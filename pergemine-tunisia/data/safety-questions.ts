@@ -54,12 +54,13 @@ export const questions: Question[] = [
     category: "ppe",
     question: "Which PPE items are mandatory at all times on the rig?",
     choices: [
-      { text: "Helmet and gloves only", correct: false, feedback: "Incomplete — minimum PPE is broader." },
       {
         text: "Hard hat, steel-toe shoes, safety glasses, and work clothing",
         correct: true,
         feedback: "Correct ✅ This is the Pergemine mandatory PPE set.",
       },
+      { text: "Helmet and gloves only", correct: false, feedback: "Incomplete — minimum PPE is broader." },
+      
       { text: "Helmet and high-visibility vest", correct: false, feedback: "Missing footwear and eye protection." },
     ],
   },
@@ -69,12 +70,13 @@ export const questions: Question[] = [
     question: "What does ATEX classification on the rig refer to?",
     choices: [
       { text: "Areas reserved for visitors", correct: false, feedback: "No — ATEX is about explosive atmospheres." },
+      
+      { text: "Areas for storing rig equipment", correct: false, feedback: "No — these are hazard-classified zones." },
       {
         text: "Zones classified as dangerous due to explosive atmospheres",
         correct: true,
         feedback: "Correct ✅ ATEX = explosive atmosphere classification.",
       },
-      { text: "Areas for storing rig equipment", correct: false, feedback: "No — these are hazard-classified zones." },
     ],
   },
 
@@ -87,17 +89,18 @@ export const questions: Question[] = [
     question: "What is your first action?",
     choices: [
       {
-        text: "Clean it quickly with a rag and continue working",
-        correct: false,
-        feedback:
-          "❌ Wrong — handling spills without proper procedure puts you and the environment at risk.",
-      },
-      {
         text: "Inform your Supervisor immediately and apply the correct environmental measures",
         correct: true,
         feedback:
           "✅ Correct — all product spills must be reported to the Supervisor to apply Pergemine's spill response protocol.",
       },
+      {
+        text: "Clean it quickly with a rag and continue working",
+        correct: false,
+        feedback:
+          "❌ Wrong — handling spills without proper procedure puts you and the environment at risk.",
+      },
+      
       {
         text: "Ignore it — it's too small to matter",
         correct: false,
@@ -173,52 +176,53 @@ export const questions: Question[] = [
         feedback:
           "❌ Near-misses are early warnings — they must be reported.",
       },
-      {
-        text: "Report the near-miss immediately to the Supervisor",
-        correct: true,
-        feedback:
-          "✅ Correct — all accidents, incidents, AND near-misses must be reported per Pergemine HSE policy.",
-      },
+      
       {
         text: "Mention it casually at lunch later",
         correct: false,
         feedback:
           "❌ Reporting must be immediate and formal so prevention measures can be applied.",
       },
+      {
+        text: "Report the near-miss immediately to the Supervisor",
+        correct: true,
+        feedback:
+          "✅ Correct — all accidents, incidents, AND near-misses must be reported per Pergemine HSE policy.",
+      },
     ],
   },
 
   /* ========== HAZARD SPOT ========== */
   {
-    type: "hazard",
-    category: "ppe",
-    question: "Click on the safety hazards you can spot in this rig scene.",
-    image: "/safety-game/hazard-scene-1.jpg",
-    hazards: [
-      {
-        x: 22,
-        y: 35,
-        label: "Worker without helmet",
-        description: "Hard hat is mandatory at all times on the rig.",
-      },
-      {
-        x: 65,
-        y: 70,
-        label: "Open chemical container",
-        description: "Chemical containers must remain sealed and labeled.",
-      },
-      {
-        x: 80,
-        y: 25,
-        label: "Blocked muster station sign",
-        description: "Emergency signs must always be visible and unobstructed.",
-      },
-      {
-        x: 45,
-        y: 80,
-        label: "Spill on the ground",
-        description: "Spills must be reported and contained immediately.",
-      },
-    ],
-  },
+  type: "hazard",
+  category: "ppe",
+  question: "Click on the safety hazards you can spot in this rig scene.",
+  image: "/safety-game/hazard-scene-1.png",
+  hazards: [
+    {
+      x: 25,
+      y: 27,
+      label: "Worker without helmet",
+      description: "Hard hat is mandatory at all times on the rig.",
+    },
+    {
+      x: 82,
+      y: 30,
+      label: "Muster station sign blocked / obstructed",
+      description: "Emergency signs must always be visible and unobstructed.",
+    },
+    {
+      x: 75,
+      y: 70,
+      label: "Open chemical container",
+      description: "Chemical containers must remain sealed and properly stored.",
+    },
+    {
+      x: 40,
+      y: 89,
+      label: "Oil/chemical spill on the ground",
+      description: "Spills must be reported and contained immediately.",
+    },
+  ],
+},
 ];
